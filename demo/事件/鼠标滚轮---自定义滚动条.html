@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>鼠标滚轮和自定义滚动条</title>
+  <style type="text/css">
+  #main{
+    width: 326px;
+    height: 402px;
+    border: 1px solid blue;
+    position: relative;
+  }
+  #div1{
+    width: 20px;
+    height: 400px;
+    border: 1px solid #000;
+    position: absolute;
+    right: 0;
+    top: 0px;
+    border-radius: 10px;
+  }
+  #div2{
+    width: 20px;
+    height: 40px;
+    background: red;
+    border-radius: 10px;
+    position: absolute;
+  }
+  #div3{
+    width: 300px;
+    height: 400px;
+    border: 1px solid #000;
+    position: absolute;
+    top: 0px;
+    overflow: hidden;
+  }
+  #div4{
+      position: absolute;
+      top: 0;
+      left: 0;
+  }
+  </style>
+	<script type="text/javascript">
+	window.onload = function(){
+     var oMain= document.getElementById('main');
+     var oDiv1 = document.getElementById('div1');
+     var oDiv2 = document.getElementById('div2');
+     var oDiv3 = document.getElementById('div3');     
+     var oDiv4 = document.getElementById('div4');
+     var maxTop = oDiv1.offsetHeight - oDiv2.offsetHeight;
+
+     //滚动条拖拽
+     oDiv2.onmousedown = function(ev){
+          var oEvent = ev || event;
+          var disY = oEvent.clientY - this.offsetTop;
+          document.onmousemove = function(ev){
+              var oEvent = ev || event;
+              var t = oEvent.clientY - disY;
+              setTop(t);
+          }
+          document.onmouseup = function(){
+              document.onmousemove = document.onmouseup =null;
+          }
+          return false;
+     }
+      function setTop(t){
+            if(t < 0){
+                t= 0;
+              }
+              if(t > maxTop){
+                t = maxTop;
+              }
+              oDiv2.style.top = t + 'px';
+              var  Scane = t / maxTop;
+              oDiv4.style.top = -Scane * (oDiv4.offsetHeight - oDiv3.offsetHeight) + 'px';
+       }
+
+    //鼠标滚轮事件
+    function onMouseWheel(ev){
+          var ev = ev || event;
+          var bDown = true;
+          
+          bDown = ev.wheelDelta?ev.wheelDelta<0:ev.detail>0;
+            if(bDown){
+              setTop(oDiv2.offsetTop+10);
+            }else{
+              setTop(oDiv2.offsetTop-10);
+            }
+            if(ev.preventDefault){
+              ev.preventDefault();
+            }
+            return false;
+    }
+    myAddEvent(oMain,'mousewheel',onMouseWheel);
+    myAddEvent(oMain,'DOMMouseScroll',onMouseWheel);
+
+	}
+  //事件绑定
+  function myAddEvent(obj,sEvent,fn){
+      if(obj.attachEvent){
+      obj.attachEvent('on'+sEvent,fn);   //IE
+      }
+      else{
+        obj.addEventListener(sEvent,fn,false);
+      }
+    }
+	</script>
+</head>
+<body>
+  <div id="main">
+      <div id="div3">
+        <div id="div4">
+           网易 (NASDAQ: NTES)是中国领先的互联网公司，利用最先进的互联网技术，加强人与人之间信息的交流和共享，实现“网聚人的力量”。创始人兼CEO是丁磊。
+在开发互联网应用、服务及其它技术方面，网易始终保持业界的领先地位，并在中国互联网行业内率先推出了包括中文全文检索、全中文大容量免费邮件系统、无限容量免费网络相册、免费电子贺卡站、网上虚拟社区、网上拍卖平台、24小时客户服务中心在内的业内领先产品或服务，还通过自主研发推出了一款率先取得白金地位的国产网络游戏。[1] 
+网易公司推出了门户网站、在线游戏、电子邮箱、在线教育、电子商务、在线音乐、网易bobo等多种服务
+       1997年 06月网易公司成立 公司正式推出全中文搜索引擎服务。
+1998年 01月 开通国内首家免费电子邮件服务，并且推出免费域名系统。
+1999年 01月 网易网站被《电脑报》评选为“中国知名度最高的网站”之首。
+2000年 08月 网易公司推出突破传统表现手法的全新电视广告“网易——网聚人的力量”，呼吁更多人参与互联网发展。
+2001年 08月 网易获得电子公告许可。
+2001年 12月 网易推出自主开发的大型网络角色扮演游戏《大话西游Online》。
+2002年 09月 推出新一代杀病毒、反垃圾、大容量的收费邮箱服务vip。
+2003年 01月 网易股票成为2002年在美国纳斯达克市场表现第一的股票。
+2004年 09月 《梦幻西游Online》被评为“亚太数字娱乐峰会唯一重点推荐网络游戏”奖，“第二届中国网络游戏年会年度网络游戏'金手指'-'最佳创新'”奖，“China joy杯最受玩家欢迎的十大网络游戏”奖。电子邮件业务是网易公司最早开展的业务之一，经过16年来的持续投入，已经发展成为网易公司的核心战略平台。1997年11月，网易自主研发了国内首个全中文的免费电子邮件系统。2007年9月，网易旗下三大免费邮箱全面开放无限容量升级服务。2009年3月，网易宣布进军企业邮箱市场。2009年11月，推出邮件客户端闪电邮。2011年7月，网易邮箱推出基于第四代Ajax引擎的极速4.0版本，国内首家全面支持HTML5。2012年8月，网易推出了完全基于HTML5和CSS3开发的网易邮箱5.0版，采用网易自主研发的第五代Ajax引擎、OPOA框架和完善的自定义组件库，通过持续优化通讯协议。2012年11月，网易邮箱发起了安全联盟“网易邮箱诚信开放平台”。截至2013年Q3，旗下8个邮箱子品牌（163免费邮、126免费邮、yeah.net免费邮、163VIP、126VIP、188财富邮、专业企业邮、免费企业邮），网易邮箱用户数已达5.9亿。此外，网易企业邮箱获得中国信息安全测评中心授予的EAL2级信息安全等级认证，网易成为互联网业界唯一获此认证的公司。[1]
+      </div>
+      </div>
+      <div id="div1">
+          <div id="div2"></div>
+      </div>
+  </div>    
+</body>
+</html>

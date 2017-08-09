@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>鼠标滚轮</title>
+	<style type="text/css">
+	#div1{
+		width: 200px;
+		height: 200px;
+		background: red;
+	}
+	</style>
+	<script type="text/javascript">
+	//普通事件：onclick onmousedown...
+	//DOM事件  :DOMMouseScroll
+	//DOM事件只能通过绑定来添加
+	window.onload = function(){
+		var oDiv = document.getElementById('div1');
+
+        //IE Chrome下
+		// oDiv.onmousewheel = function(){
+		// 	alert(1);
+		// }
+
+		//FF下
+		/*oDiv.addEventListener('DOMMouseScroll',function(){
+			alert(1);
+		},false) ; */
+       
+        /*
+          IE      attach     mousewheel
+          FF      add        DOMMouseScroll
+          Chrome  add        mousewheel
+        */
+        function onMouseWheel(ev){
+        	var ev = ev || event;
+        	//IE  chrome
+        	/*
+        	wheelDelta:下  负
+        	           上  正
+          	*/
+          	//FF
+            /*
+        	  detail:  下  正
+        	           上  负
+          	*/
+          	var bDown = true;
+          	// if (ev.wheelDelta) {
+          	// 	if(ev.wheelDelta < 0){
+          	// 		bDown = true;
+          	// 	}else{
+          	// 		bDown = false;
+          	// 	}
+          	// }else{
+          	// 	if(ev.detail > 0){
+          	// 		bDown = true;
+          	// 	}else{
+          	// 		bDown = false;
+          	// 	}
+          	// }
+          	bDown = ev.wheelDelta?ev.wheelDelta<0:ev.detail>0;
+          	if(bDown){
+          		oDiv.style.height = oDiv.offsetHeight+10+'px';
+          	}else{
+          		oDiv.style.height = oDiv.offsetHeight-10+'px';
+          	}
+            if(ev.preventDefault){
+              ev.preventDefault();
+            }
+          	return false;
+        }
+         myAddEvent(oDiv,'mousewheel',onMouseWheel);
+         myAddEvent(oDiv,'DOMMouseScroll',onMouseWheel);
+	}
+
+	function myAddEvent(obj,sEvent,fn){
+	if(obj.attachEvent){
+		obj.attachEvent('on'+sEvent,fn);   //IE
+	}
+	else{
+		obj.addEventListener(sEvent,fn,false);
+ 	}
+}
+	</script>
+</head>
+<body style="height:2000px">
+   <div id="div1"></div>
+</body>
+</html>

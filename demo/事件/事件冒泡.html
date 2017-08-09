@@ -1,0 +1,47 @@
+<!DOCTYPE　html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>事件冒泡</title>
+	<script type="text/javascript">
+	window.onload = function(){
+		/*
+		事件冒泡:  当一个元素接收到事件的时候，会把他接收到的所有传播给他的父级，一直到顶层window，事件冒泡机制
+		*/
+         var oDiv1 = document.getElementById('div1');
+         var oDiv2 = document.getElementById('div2');
+         var oDiv3 = document.getElementById('div3');
+         function fn1(ev){
+         	var ev = ev || event;
+         	// ev.cancelBubble = true;  //阻止事件冒泡
+         	alert(this.id);
+         }
+         oDiv1.onclick = fn1;
+         //oDiv2.onclick = fn1;  即使注释掉div2，但也不影响div2接收到点击事件，只是他没有执行这个函数而已
+         oDiv3.onclick = fn1;
+	}
+	</script>
+	<style type="text/css">
+	   div{
+	   	padding: 40px;
+	   }
+	   #div1{
+	   	background: red;
+	   }
+	   #div2{
+	   	background: green;
+	   }
+	   #div3{
+	   	background: blue;
+	   }
+	</style>
+</head>
+<body>
+        <div id="div1">
+        	<div id="div2">
+        		<div id="div3">
+        		</div>
+        	</div>
+        </div>
+</body>
+</html>

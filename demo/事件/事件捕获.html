@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>事件捕获</title>
+	<style type="text/css">
+	   div{
+	   	padding: 40px;
+	   }
+	   #div1{
+	   	background: red;
+	   }
+	   #div2{
+	   	background: green;
+	   }
+	   #div3{
+	   	background: blue;
+	   }
+	</style>
+	<script type="text/javascript">
+	window.onload = function(){
+         var oDiv1 = document.getElementById('div1');
+         var oDiv2 = document.getElementById('div2');
+         var oDiv3 = document.getElementById('div3');
+         function fn1(ev){
+         	// var ev = ev || event;
+         	// ev.cancelBubble = true;
+         	alert(this.id);
+         }
+         // oDiv1.addEventListener('click',fn1,false);
+         // oDiv2.addEventListener('click',fn1,false);
+         // oDiv3.addEventListener('click',fn1,false); //事件冒泡(监控出去由里到外)
+         oDiv1.addEventListener('click',fn1,true);
+         oDiv2.addEventListener('click',fn1,true);
+         oDiv3.addEventListener('click',fn1,true);//事件捕获(监控进来由外到里)
+	}
+	</script>
+</head>
+<body>
+<div id="div1">
+        	<div id="div2">
+        		<div id="div3">
+        		</div>
+        	</div>
+        </div>
+</body>
+</html>

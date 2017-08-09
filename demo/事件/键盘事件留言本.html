@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>键盘事件留言本</title>
+	<script type="text/javascript">
+	window.onload = function(){
+		var oText = document.getElementById('text1');
+		var oUl = document.getElementById('ul1');
+		var oBtn = document.getElementById('btn');
+		
+		//当点击按钮和点击回车键的时候都可以使其发表 
+		oBtn.onclick = fn1;
+		oText.onkeyup = function(ev){
+			//alert(this.value);
+			var ev = ev || event;
+			//if(ev.keyCode == 13)//敲回车键才可以显示在底下
+			if(ev.keyCode == 13 || ev.ctrlKey)//这个是Ctrl加上回车键才可以达到效果
+			{
+                fn1();
+			}
+		}
+		function fn1(){
+			if(this.value != ''){
+				var oLi = document.createElement('li');
+				var oA = document.createElement('a');
+				oLi.innerHTML = oText.value;
+				oA.innerHTML = '删除';
+				oA.onclick = function(){
+					oUl.removeChild(this.parentNode);
+				}
+				oLi.appendChild(oA);
+				if(oUl.children[0]){
+					oUl.insertBefore(oLi,oUl.children[0]);
+				}else{
+					oUl.appendChild(oLi);
+				}
+				oText.value = '';
+			   }
+		}
+	}
+	</script>
+</head>
+<body>
+     <input type="text" id="text1"/>
+     <input type="button" id="btn" value="发表"/>
+     <ul id="ul1"></ul>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>事件默认行为</title>
+	<script type="text/javascript">
+	window.onload = function(){
+          /*
+          当一个事件发生的时候，浏览器会默认做的事情叫默认的事情
+          怎么阻止？
+          1.当前行为是什么事件触发的，然后再这个事件处理函数中添加return false;
+          */
+          var oDiv = document.getElementById('div1');
+          // document.onkeydown = function(){
+          // 	return false;//阻止默认事件
+          // }
+          //oncontextmenu : 右键菜单事件，当右键菜单(环境菜单)显示出来的时候触发
+          document.oncontextmenu = function(ev){
+          	var ev = ev || event;
+          	// var oscrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+          	// var oscrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft; 
+          	oDiv.style.display = 'block';
+            oDiv.style.left = ev.clientX + 'px';
+            oDiv.style.top = ev.clientY + 'px';
+          	return false;
+          }
+          document.onclick = function(){
+          	oDiv.style.display = 'none';
+          }
+	}
+	</script>
+	<style type="text/css">
+	#div1{
+		width: 100px;height: 100px;
+		position: absolute;
+		border:1px solid red;
+		display: none;
+	}
+	</style>
+</head>
+<body style="height:2000px;">
+           <div id="div1"></div>
+</body>
+</html>

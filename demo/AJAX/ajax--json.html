@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>ajax</title>
+	<script type="text/javascript">
+	window.onload = function(){
+		var oBtn = document.getElementsByTagName('input')[0];
+		oBtn.onclick = function(){
+			function ajax() {
+				var oAjax = null;
+				if (window.XMLHttpRequest) {
+					oAjax = new XMLHttpRequest();
+				}
+				else {
+					oAjax = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				oAjax.open('post', json.txt, true);
+				oAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				oAjax.send("a=1&b=3");
+				oAjax.onreadystatechange = function () {
+					if (oAjax.readyState == 4)	//完成
+					{
+						if (oAjax.status == 200)	//成功
+						{
+							alert("1");
+						}
+					}
+				}
+			}
+		}
+	}
+	</script>
+</head>
+<body>
+	请求服务器上的文件，文件里是一个json<br/>	
+	<input id="btn1" type="button" value="读取json"/>
+</body>
+</html>

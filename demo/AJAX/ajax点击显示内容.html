@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>ajax点击显示内容</title>
+	<style type="text/css">
+	#div1{
+		width: 200px;
+		height: 200px;
+		background: #ccc;
+	}
+	</style>
+	<script src="ajax.js"></script>
+	<script type="text/javascript">
+	window.onload = function(){
+		var oBtn = document.getElementsByTagName('input');
+		var oDiv = document.getElementById('div1');
+
+		for(var i=0;i<oBtn.length;i++){
+			oBtn[i].index = i;
+		    oBtn[i].onclick = function(){
+				ajax(this.index+1+'.txt',function(str){
+                     oDiv.innerHTML = str;
+				})
+			}
+		}
+	}
+	</script>
+</head>
+<body>
+   <input type="button" value="点击一"/>
+   <input type="button" value="点击二"/>
+   <div id="div1"></div>
+</body>
+</html>

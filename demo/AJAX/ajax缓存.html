@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>ajax点击显示内容</title>
+	<script src="ajax.js"></script>
+	<script type="text/javascript">
+	window.onload = function(){
+		var oBtn = document.getElementsByTagName('input')[0];
+		oBtn.onclick = function(){
+			//alert('abc.txt?t='+new Date().getTime());用时间戳解决缓存
+			ajax('abc.txt?t='+new Date().getTime(),function(str){
+				alert(str);
+			});
+		}
+	}
+	</script>
+</head>
+<body>
+	点击按钮的时候，读取abc.txt的内容<br/>
+   <input type="button" value="显示"/>
+</body>
+</html>

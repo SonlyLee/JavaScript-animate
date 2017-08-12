@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>基础</title>
+	<style type="text/css">
+	#div1{
+		width: 100px;
+		height: 100px;
+		position: absolute;
+		left: 0;
+		top: 50px;
+		background: red;
+	}
+	</style>
+	<script type="text/javascript">
+	window.onload = function(){
+
+		var oDiv = document.getElementById('div1');
+		var oDiv2 = document.getElementById('div2');
+        var oBtn = document.getElementById('btn');
+        var oBtn1 = document.getElementById('btn1');
+        var oBtn2 = document.getElementById('btn2');
+        var timer = null;
+		
+		function startMove(obj,dir,target){
+			clearInterval(obj.timer);
+				obj.timer=setInterval(function(){
+				var speed = obj.offsetLeft + dir;				
+				if(speed <= target && dir < 0){
+					speed = target; //回来
+				}
+				if(speed >= target && dir > 0)
+				{
+					speed = target; //快走
+				}
+				obj.style.left = speed + 'px';
+				if(speed == target){
+					clearInterval(obj.timer);
+				}	
+				},30);				
+		}
+		oBtn.onclick = function(){
+			startMove(oDiv,15,1000);
+		}
+		oBtn1.onclick = function(){
+			startMove(oDiv2,-15,30);
+		};
+		oBtn2.onclick = function(){
+			clearInterval(oDiv.timer);
+		}
+	}
+
+	</script>
+	
+<body>
+     <input type="button" value="开始运动" id="btn"/>
+     <input type="button" value="回来" id="btn1"/>
+     <input type="button" value="你给我停下" id="btn2"/>
+     <div id="div1"></div>
+     <div id="div2" style="position:absolute;top:400px;right:200px;width:100px;height:100px;background:#ccc;">csachuidsh</div>
+
+</body>
+</html>

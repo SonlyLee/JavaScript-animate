@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>缓冲运动</title>
+	<script type="text/javascript">
+	window.onload = function(){
+		/*
+		    缓冲运动:逐渐变慢，最后停止
+		    距离越远，速度越大  -----速度由距离决定，速度=(目标值-当前值)/缩放系数
+		    接近终点，速度越小，距离越小，速度就越小，距离越大，速度就越大
+		*/
+		var oDiv = document.getElementById('div1');
+		var aInput = document.getElementById('input');
+		var aTxt = document.getElementById('txt1');
+		var timer = null;
+
+		function startMove(target){
+             clearInterval(timer);
+             timer = setInterval(function(){
+             	var speed = (target - oDiv.offsetLeft)/14; //用目标点减去div的距离除以14就会达到先快后慢的效果
+             	
+             	if(speed > 0){
+             		speed = Math.ceil(speed);//向上取整，解决没有达到的误差，因为存在小数
+             	}else{
+             		speed = Math.floor(speed);//向下取整
+             	}
+             	if(oDiv.offsetLeft == target)//两个点重合就行就是缓冲运动的终止条件
+             	{
+             		clearInterval(timer);
+             	}
+             	else{
+             		oDiv.style.left = oDiv.offsetLeft + speed + 'px';
+             	}       
+             },30);
+		}
+
+		aInput.onclick = function(){
+			startMove(400);
+		}
+	}
+	</script>
+	<style type="text/css">
+	#div1{
+		width: 100px;
+		height: 100px;
+		background: red;
+		position: absolute;
+		left: 800px;
+		top: 50px;
+	}
+	</style>
+</head>
+<body>
+    <input type="button" value="开始运动" id="input"/>
+    <div id="div1"></div>
+    <span style="width:1px;height:300px;background:#000;position:absolute;top:0;left:400px;"></span>
+</body>
+</html>

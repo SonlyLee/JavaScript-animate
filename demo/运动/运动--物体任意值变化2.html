@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>多物体运动div变宽</title>
+	<script type="text/javascript">
+	window.onload = function(){
+	   var aDiv = document.getElementsByTagName('div');
+       var timer = null;
+
+	   
+	   	   aDiv[0].onclick = function(){   	   	
+	   	   	startMove(this,300,'width');
+	   	   }
+	   	   aDiv[1].onclick = function(){
+	   	   	startMove(this,100,'height');
+	   	   }
+         aDiv[2].onclick = function(){
+          startMove(this,100,'fontSize');
+         }
+
+	   function startMove(obj,target,attr){
+           clearInterval(obj.timer);
+           obj.timer = setInterval(function(){
+            var iCur = parseInt(getStyle(obj,attr));
+           	var speed = (target - iCur)/15;
+           	speed = speed>0?Math.ceil(speed):Math.floor(speed);
+          
+           	if(target == iCur){
+           		clearInterval(obj.timer);
+           	}
+           	else{
+           		obj.style[attr]= iCur + speed + 'px';
+           	}
+           },30);
+        }
+
+        function getStyle(obj,attr){
+          return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj,false)[attr];
+        }
+        
+	}
+	</script>
+	<style type="text/css">
+	div{
+      width: 100px;
+      height: 50px;
+      background: red;
+      margin-top: 50px;
+      font-size: 15px;
+	}
+	</style>
+</head>
+<body>
+     <div></div>
+     <div></div>
+     <div>vsdvsd</div>
+     <div></div>
+</body>
+</html>

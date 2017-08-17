@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>Json</title>
+	<script type="text/javascript">
+	var obj = {a:15,b:4,c:8};
+	var arr = [15,4,8];
+	// alert(obj['a']);//字符串作为下标
+	// alert(arr[0]);//数字作为下标
+	var i = 0;
+	for(i in arr){
+		alert(i+'='+arr[i]);
+	}
+	for(i in obj){
+		alert(i+'='+obj[i]);
+	}
+	//数组  既可以用for循环，也可以用for-in循环
+	//json 只能用for-in循环
+	</script>
+</head>
+<body>
+
+</body>
+</html>

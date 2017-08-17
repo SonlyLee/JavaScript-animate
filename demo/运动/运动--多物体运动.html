@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>多物体运动div变宽</title>
+	<script type="text/javascript">
+	window.onload = function(){
+	   var aDiv = document.getElementsByTagName('div');
+       var timer = null;
+
+	   for(var i=0;i<aDiv.length;i++){
+	   	   aDiv[i].onmouseover = function(){   	   	
+	   	   	startMove(this,300);
+	   	   }
+	   	   aDiv[i].onmouseout = function(){
+	   	   	startMove(this,50);
+	   	   }
+	   }
+
+	   function startMove(obj,target){
+           clearInterval(obj.timer);
+           obj.timer = setInterval(function(){
+           	var speed = (target - obj.offsetWidth)/15;
+           	speed = speed>0?Math.ceil(speed):Math.floor(speed);
+          
+           	if(target == obj.offsetWidth){
+           		clearInterval(obj.timer);
+           	}
+           	else{
+           		obj.style.width = obj.offsetWidth + speed + 'px';
+           	}
+           },30);
+        }
+
+	}
+        
+   
+
+	</script>
+	<style type="text/css">
+	div{
+      width: 100px;
+      height: 50px;
+      background: red;
+      margin-top: 50px;
+	}
+	</style>
+</head>
+<body>
+     <div></div>
+     <div></div>
+     <div></div>
+     <div></div>
+</body>
+</html>

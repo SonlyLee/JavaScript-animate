@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>多物体淡入淡出</title>
+	<style type="text/css">
+	div{
+		width: 100px;
+		height: 100px;
+		background: red;
+		margin-top: 52px;
+		filter:alpha(opacity:30);
+		opacity:0.3;
+	}
+	</style>
+	<script type="text/javascript">
+	window.onload = function(){
+       /*
+       多物体运动的框架
+          定时器作为物体的属性
+          参数的传递:物体、目标值
+          所有的东西不能公用
+          属性与运动对象绑定:速度、其他属性值(如透明度等)
+       */
+       	var timer = null;
+    	var aDiv = document.getElementsByTagName('div');
+
+        for(var i=0;i<aDiv.length;i++){
+		    aDiv[i].alpha = 30;
+            aDiv[i].onmouseover = function(){
+            	startMove(this,100);
+            }
+            aDiv[i].onmouseout = function(){
+            	startMove(this,30);
+            }
+        }
+
+	    function startMove(obj,target){
+        clearInterval(obj.timer);
+        obj.timer = setInterval(function(){
+        	var speed = (target - obj.alpha)/8;
+           	speed = speed>0?Math.ceil(speed):Math.floor(speed);
+           	if(target == obj.alpha){
+           		clearInterval(obj.timer);
+           	}else{
+           		obj.alpha += speed;
+           		obj.style.filter = 'alpha(opacity:'+obj.alpha+')';
+           		obj.style.opacity = obj.alpha/100;
+           	}
+        },30);
+	}
+
+	}
+	</script>
+</head>
+<body>
+   <div></div>
+   <div></div>
+   <div></div>
+   <div></div>
+   <div></div>
+</body>
+</html>
